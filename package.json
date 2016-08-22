@@ -1,6 +1,6 @@
 {
   "name": "then-recursively-search",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Promise-based utility that recursively searches for a file, moving up the directory tree until found.",
   "main": "index.js",
   "scripts": {
@@ -38,7 +38,7 @@
     "debug": "^2.2.0"
   },
   "engines": {
-    "node": ">=0.12.x"
+    "node": ">=0.12"
   },
   "standard": {
     "ignore": [
