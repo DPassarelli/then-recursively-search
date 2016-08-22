@@ -1,5 +1,3 @@
-'use strict'
-
 const Promise = require('bluebird')
 const debug = require('debug')('then-recursively-search')
 const fs = Promise.promisifyAll(require('fs'))
@@ -30,6 +28,10 @@ function _findFile (startIn, filename) {
 
     return fs.readdirAsync(startIn)
       .then(function (contents) {
+        /**
+         * The name of the directory one level up from the current one.
+         * @type {String}
+         */
         const parentDir = path.dirname(startIn)
 
         if (~contents.indexOf(filename)) {
@@ -37,11 +39,18 @@ function _findFile (startIn, filename) {
           return path.join(startIn, filename)
         }
 
+        /**
+         * If the current directory is the same as the parent, it means there is nowhere else to go.
+         * We've moved all the way up the directory tree.
+         */
         if (parentDir === startIn) {
           debug('not found')
           throw new Error('File not found.')
         }
 
+        /**
+         * Recurse...
+         */
         return _findFile(parentDir, filename)
       })
   })

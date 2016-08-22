@@ -48,35 +48,42 @@ describe('rejections', function () {
   })
 
   it('should be rejected if no parameter values are provided', function () {
-    return expect(T()).to.be.eventually.rejected.with.property('message', ERR_MISSING_DIR)
+    return expect(T()).to.be.eventually.rejected
+      .with.property('message', ERR_MISSING_DIR)
   })
 
   it('should be rejected if the "startIn" parameter is provided, but not "filename"', function () {
-    return expect(T('C:/')).to.be.eventually.rejected.with.property('message', ERR_MISSING_FILE)
+    return expect(T('C:/')).to.be.eventually.rejected
+      .with.property('message', ERR_MISSING_FILE)
   })
 
   it('should be rejected if the value for "startIn" is not a string', function () {
-    return expect(T(123, 'test.txt')).to.be.eventually.rejected.with.instanceof(TypeError).and.property('message').match(/path must be a string/i)
+    return expect(T(123, 'test.txt')).to.be.eventually.rejected
+      .with.instanceof(TypeError)
+      .and.property('message').match(/(arguments to path\.resolve must be strings)|(path must be a string)/i) // error message depends on version of Node
   })
 
   it('should be rejected if the file does not exist anywhere in the specified directory (or any parent directories)', function () {
     const startIn = path.join(process.cwd(), './one/two/three/four')
     const filename = 'dne.txt'
 
-    return expect(T(startIn, filename)).to.be.eventually.rejected.with.property('message', ERR_404)
+    return expect(T(startIn, filename)).to.be.eventually.rejected
+      .with.property('message', ERR_404)
   })
 
   it('should be rejected if the directory specified by "startIn" does not exist', function () {
     const startIn = path.join(process.cwd(), './one/two/three/four/five')
     const filename = 'dne.txt'
 
-    return expect(T(startIn, filename)).to.be.eventually.rejected.with.property('code', 'ENOENT')
+    return expect(T(startIn, filename)).to.be.eventually.rejected
+      .with.property('code', 'ENOENT')
   })
 
   it('should be rejected if "filename" exists, but with a different case', function () {
     const startIn = path.join(process.cwd(), './one/two/three')
     const filename = 'ONE.txt'
 
-    return expect(T(startIn, filename)).to.be.eventually.rejected.with.property('message', ERR_404)
+    return expect(T(startIn, filename)).to.be.eventually.rejected
+      .with.property('message', ERR_404)
   })
 })
