@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/DPassarelli/then-recursively-search.svg?branch=master)](https://travis-ci.org/DPassarelli/then-recursively-search)
 [![Coverage Status](https://coveralls.io/repos/github/DPassarelli/then-recursively-search/badge.svg?branch=master)](https://coveralls.io/github/DPassarelli/then-recursively-search?branch=master)
+[![Dependencies](https://david-dm.org/DPassarelli/then-recursively-search.svg)](https://david-dm.org/DPassarelli/then-recursively-search)
 
 A Promise-based Node module that recursively searches for a file, moving up the directory tree until found.
 
@@ -58,7 +59,7 @@ npm test
 
 **ISC**
 
-Copyright (c) 2016, [David Passarelli](mailto:dpassarelli@camelotcg.com)
+Copyright (c) 2016-2018, [David Passarelli](mailto:dpassarelli@camelotcg.com)
 
 Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted, provided that the above copyright notice and this permission notice appear in all copies.
 
