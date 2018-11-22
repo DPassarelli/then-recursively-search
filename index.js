@@ -2,29 +2,29 @@ const debug = require('debug')('then-recursively-search')
 const fs = require('fs')
 const path = require('path')
 
-module.exports = _findFile
+module.exports = findFile
 
 /**
  * Recursively search a directory tree for the specified file.
  *
  * @param  {String}    startIn    The directory to begin searching in.
  *
- * @param  {String}    filename   The name (including extension) of the file to search for.
+ * @param  {String}    filename   The name (including extension) of the file to
+ *                                search for.
  *
- * @return {Promise}              Fulfilled with the complete path to the file (if found); otherwise, rejected.
+ * @return {Promise}              Fulfilled with the complete path to the file
+ *                                (if found); otherwise, rejected.
  */
-function _findFile (startIn, filename) {
+function findFile (startIn, filename) {
   debug('searching for "%s" in "%s"', filename, startIn)
 
   return new Promise(function (resolve, reject) {
     if (startIn == null) {
-      reject(new Error('The required parameter "startIn" is missing.'))
-      return
+      throw new Error('The required parameter "startIn" is missing.')
     }
 
     if (filename == null) {
-      reject(new Error('The required parameter "filename" is missing.'))
-      return
+      throw new Error('The required parameter "filename" is missing.')
     }
 
     fs.readdir(startIn, function (err, contents) {
@@ -40,17 +40,18 @@ function _findFile (startIn, filename) {
       const parentDir = path.dirname(startIn)
 
       if (~contents.indexOf(filename)) {
-        debug('found!')
-        resolve(path.join(startIn, filename))
+        const matchingPath = path.join(startIn, filename)
+        debug('...found! matching path is "%s"', matchingPath)
+        resolve(matchingPath)
         return
       }
 
       /**
-       * If the current directory is the same as the parent, it means there is nowhere else to go.
-       * We've moved all the way up the directory tree.
+       * If the current directory is the same as the parent, it means there is
+       * nowhere else to go. We've moved all the way up the directory tree.
        */
       if (parentDir === startIn) {
-        debug('not found')
+        debug('...root folder reached, no match found')
         reject(new Error('File not found.'))
         return
       }
@@ -58,7 +59,9 @@ function _findFile (startIn, filename) {
       /**
        * Otherwise, recurse...
        */
-      _findFile(parentDir, filename)
+      debug('recursing...')
+
+      findFile(parentDir, filename)
         .then(function (path) {
           resolve(path)
         })

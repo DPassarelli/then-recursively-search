@@ -60,7 +60,6 @@ describe('rejections', function () {
   it('should be rejected if the value for "startIn" is not a string', function () {
     return expect(T(123, 'test.txt')).to.be.eventually.rejected
       .with.instanceof(TypeError)
-      .and.property('message').match(/(arguments to path\.resolve must be strings)|(path must be a string)/i) // error message depends on version of Node
   })
 
   it('should be rejected if the file does not exist anywhere in the specified directory (or any parent directories)', function () {

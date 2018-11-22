@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/), and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [3.0.0] - 2018-11-22
+
+### Removed
+
+* Dropped support for Node 4.
+
+### Added
+
+* Added support for Node 10.
+
+### Changed
+
+* Minor code simplifications.
+* Updated all dependencies.
+
+
 ## [2.0.0] - 2018-02-19
 
 ### Removed
