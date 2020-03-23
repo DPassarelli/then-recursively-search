@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/), and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [4.0.0] - 2020-03-23
+
+### Removed
+
+* Dropped support for Node 6.
+
+### Added
+
+* Added support for Node 12.
+
+### Changed
+
+* Moved settings for `mocha` from `mocha.opts` to `package.json` (see https://github.com/mochajs/mocha/pull/3968)
+* Updated `dev` dependencies.
+
+
 ## [3.0.1] - 2019-10-04
 
 ### Fixed
