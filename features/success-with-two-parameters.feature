@@ -6,7 +6,7 @@ Feature: Searching for a known file within a given directory structure
     {
       "one": {
         "one.txt": "test file",
-        "two.txt": "test file",
+        "one-plus.txt": "test file",
         "two": {
           "two.txt": "test file",
           "three": {
@@ -23,5 +23,7 @@ Feature: Searching for a known file within a given directory structure
     Then the module should return "<expected>"
 
     Scenarios:
-    | starting point | to find   | expected                |
-    | one/two/three  | three.txt | one/two/three/three.txt |
+    | starting point | to find      | expected                |
+    | one/two/three  | three.txt    | one/two/three/three.txt |
+    | one/two/three  | two.txt      | one/two/two.txt         |
+    | one/two/three  | one-plus.txt | one/one-plus.txt        |

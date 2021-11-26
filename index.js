@@ -28,20 +28,23 @@ function findFile (startIn, filename) {
     // }
 
     fs.readdir(startIn, function (err, contents) {
-      if (err) {
-        reject(err)
-        // return
+      // if (err) {
+      //   reject(err)
+      //   return
+      // }
+
+      if (contents.includes(filename)) {
+        const matchingPath = path.join(startIn, filename)
+        debug('...found! matching path is "%s"', matchingPath)
+        resolve(matchingPath)
+        return
       }
 
       /**
        * The name of the directory one level up from the current one.
        * @type {String}
        */
-      // const parentDir = path.dirname(startIn)
-
-      const matchingPath = path.join(startIn, filename)
-      debug('...found! matching path is "%s"', matchingPath)
-      resolve(matchingPath)
+      const parentDir = path.dirname(startIn)
 
       // /**
       //  * If the current directory is the same as the parent, it means there is
@@ -53,18 +56,18 @@ function findFile (startIn, filename) {
       //   return
       // }
 
-      // /**
-      //  * Otherwise, recurse...
-      //  */
-      // debug('recursing...')
+      /**
+       * Otherwise, recurse...
+       */
+      debug('recursing...')
 
-      // findFile(parentDir, filename)
-      //   .then(function (path) {
-      //     resolve(path)
-      //   })
-      //   .catch(function (err) {
-      //     reject(err)
-      //   })
+      findFile(parentDir, filename)
+        .then(function (path) {
+          resolve(path)
+        })
+      // .catch(function (err) {
+      //   reject(err)
+      // })
     })
   })
 }
