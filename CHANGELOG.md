@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/), and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## Unreleased
+
+### Removed
+
+* Dropped support for Node 8.
+
+### Added
+
+* The API now supports calling with a single parameter. In this case, the parameter is assumed to be the name of a file, and the starting directory is set to `__dirname`.
+* Added support for Node 14 and 16.
+
+### Changed
+
+* ??? restrict folder path to something in the current project? need to test if any folder can be entered
+* Updated all dependencies.
+
 
 ## [4.0.0] - 2020-03-23
 
