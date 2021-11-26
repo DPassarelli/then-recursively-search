@@ -19,55 +19,52 @@ function findFile (startIn, filename) {
   debug('searching for "%s" in "%s"', filename, startIn)
 
   return new Promise(function (resolve, reject) {
-    if (startIn == null) {
-      throw new Error('The required parameter "startIn" is missing.')
-    }
+    // if (startIn == null) {
+    //   throw new Error('The required parameter "startIn" is missing.')
+    // }
 
-    if (filename == null) {
-      throw new Error('The required parameter "filename" is missing.')
-    }
+    // if (filename == null) {
+    //   throw new Error('The required parameter "filename" is missing.')
+    // }
 
     fs.readdir(startIn, function (err, contents) {
       if (err) {
         reject(err)
-        return
+        // return
       }
 
       /**
        * The name of the directory one level up from the current one.
        * @type {String}
        */
-      const parentDir = path.dirname(startIn)
+      // const parentDir = path.dirname(startIn)
 
-      if (~contents.indexOf(filename)) {
-        const matchingPath = path.join(startIn, filename)
-        debug('...found! matching path is "%s"', matchingPath)
-        resolve(matchingPath)
-        return
-      }
+      const matchingPath = path.join(startIn, filename)
+      debug('...found! matching path is "%s"', matchingPath)
+      resolve(matchingPath)
 
-      /**
-       * If the current directory is the same as the parent, it means there is
-       * nowhere else to go. We've moved all the way up the directory tree.
-       */
-      if (parentDir === startIn) {
-        debug('...root folder reached, no match found')
-        reject(new Error('File not found.'))
-        return
-      }
+      // /**
+      //  * If the current directory is the same as the parent, it means there is
+      //  * nowhere else to go. We've moved all the way up the directory tree.
+      //  */
+      // if (parentDir === startIn) {
+      //   debug('...root folder reached, no match found')
+      //   reject(new Error('File not found.'))
+      //   return
+      // }
 
-      /**
-       * Otherwise, recurse...
-       */
-      debug('recursing...')
+      // /**
+      //  * Otherwise, recurse...
+      //  */
+      // debug('recursing...')
 
-      findFile(parentDir, filename)
-        .then(function (path) {
-          resolve(path)
-        })
-        .catch(function (err) {
-          reject(err)
-        })
+      // findFile(parentDir, filename)
+      //   .then(function (path) {
+      //     resolve(path)
+      //   })
+      //   .catch(function (err) {
+      //     reject(err)
+      //   })
     })
   })
 }
