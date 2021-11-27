@@ -34,7 +34,7 @@ function findFile (startIn, filename) {
     //   throw new Error('The required parameter "filename" is missing.')
     // }
 
-    fs.readdir(startIn, function (err, contents) {
+    fs.readdir(startIn, function (err, contents) { // eslint-disable-line
       // if (err) {
       //   reject(err)
       //   return
