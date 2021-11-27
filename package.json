@@ -6,7 +6,7 @@
   "scripts": {
     "test": "npm run lint && npm run cucumber",
     "lint": "standard",
-    "cucumber": "cucumber-js"
+    "cucumber": "nyc cucumber-js"
   },
   "repository": {
     "type": "git",
@@ -40,8 +40,8 @@
     "functions": 95,
     "branches": 95,
     "exclude": [
-      "instrumented",
-      "test"
+      "features/",
+      "cucumber.js"
     ]
   },
   "dependencies": {
@@ -52,6 +52,7 @@
     "@cucumber/cucumber": "^8.0.0-rc.1",
     "chai": "^4.3.4",
     "del": "^6.0.0",
+    "nyc": "^15.1.0",
     "standard": "^16.0.4"
   }
 }
