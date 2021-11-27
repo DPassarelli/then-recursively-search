@@ -14,12 +14,12 @@ When('searching for file {string} in folder {string}', async function (filename,
   this.actual = await T(startIn, filename)
 })
 
-When('executing the file at {string}', async function (pathspec) {
+When('executing the script at {string}', async function (pathspec) {
   const pathToScript = path.join(this.tempFolder, pathspec)
   this.actual = await require(pathToScript)
 })
 
-Then('the module/script should return {string}', function (pathspec) {
+Then('the promise should resolve to {string}', function (pathspec) {
   const expected = path.join(this.tempFolder, pathspec)
   expect(expected).to.equal(this.actual)
 })
