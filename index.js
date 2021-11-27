@@ -1,3 +1,4 @@
+const callsites = require('callsites')
 const debug = require('debug')('then-recursively-search')
 const fs = require('fs')
 const path = require('path')
@@ -7,7 +8,8 @@ module.exports = findFile
 /**
  * Recursively search a directory tree for the specified file.
  *
- * @param  {String}    startIn    The directory to begin searching in.
+ * @param  {String?}   startIn    The directory to begin searching in. Defaults
+ *                                to the folder containing the calling code.
  *
  * @param  {String}    filename   The name (including extension) of the file to
  *                                search for.
@@ -16,6 +18,11 @@ module.exports = findFile
  *                                (if found); otherwise, rejected.
  */
 function findFile (startIn, filename) {
+  if (filename === undefined) {
+    filename = startIn
+    startIn = path.dirname(callsites()[1].getFileName())
+  }
+
   debug('searching for "%s" in "%s"', filename, startIn)
 
   return new Promise(function (resolve, reject) {

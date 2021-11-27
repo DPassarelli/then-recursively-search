@@ -26,9 +26,9 @@ npm install then-recursively-search
 
 ### API
 
-#### `fn(startIn, filename)`
+#### `fn([startIn,] filename)`
 
-* @param {String} `startIn` - The directory to begin searching in.
+* @param {String?} `startIn` - The directory to begin searching in. If not specified, then defaults to the same value as `__dirname`.
 * @param {String} `filename` - The name (including extension) of the file to search for.
 * @return {Promise} - Fulfilled with the complete path to the file (if found); otherwise, rejected.
 
@@ -38,9 +38,9 @@ npm install then-recursively-search
 ```
 const findFile = require('then-recursively-search')
 
-findFile(__dirname, 'package.json')
-  .then(function (pathToFile) {
-    ...
+findFile('package.json')
+  .then(function (pathspec) {
+    // `pathspec` will be a complete path to the nearest `package.json` file in any folder above `__dirname`
   })
 ```
 
@@ -58,7 +58,7 @@ npm test
 
 **ISC**
 
-Copyright (c) 2016-2020, [David Passarelli](mailto:dpassarelli@camelotcg.com)
+Copyright (c) [David Passarelli](mailto:dpassarelli@camelotcg.com)
 
 Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted, provided that the above copyright notice and this permission notice appear in all copies.
 

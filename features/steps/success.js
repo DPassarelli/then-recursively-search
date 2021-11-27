@@ -10,11 +10,16 @@ const { expect } = require('chai')
 const T = require('../../index.js')
 
 When('searching for file {string} in folder {string}', async function (filename, pathspec) {
-  const startIn = path.join(process.cwd(), pathspec)
+  const startIn = path.join(this.tempFolder, pathspec)
   this.actual = await T(startIn, filename)
 })
 
-Then('the module should return {string}', function (pathspec) {
-  const expected = path.join(process.cwd(), pathspec)
+When('executing the file at {string}', async function (pathspec) {
+  const pathToScript = path.join(this.tempFolder, pathspec)
+  this.actual = await require(pathToScript)
+})
+
+Then('the module/script should return {string}', function (pathspec) {
+  const expected = path.join(this.tempFolder, pathspec)
   expect(expected).to.equal(this.actual)
 })

@@ -1,4 +1,5 @@
-Feature: This module returns the path to the first matching file it finds.
+Feature: When provided the name of a file and a folder, then this module returns
+         the path to the first match it finds.
 
   Background:
     Given a directory tree with the following structure:
