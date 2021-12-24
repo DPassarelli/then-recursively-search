@@ -113,9 +113,9 @@ async function exported (filename, startIn) {
   if (startIn === undefined) {
     const callstack = callsites()
     startIn = path.dirname(callstack[1].getFileName())
+  } else {
+    validateStartingPoint(startIn)
   }
-
-  validateStartingPoint(startIn)
 
   return searchForFile(filename.toLowerCase(), startIn)
 }

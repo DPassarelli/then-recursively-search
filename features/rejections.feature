@@ -19,6 +19,9 @@ Feature: Rejections
             "four": {
             }
           }
+        },
+        "twos-compliment": {
+          "three.txt": "test file"
         }
       }
     }
@@ -46,6 +49,16 @@ Feature: Rejections
     Scenario:
       When calling the exported function with a relative path
       Then the promise should be rejected with "if specified, the \"startIn\" parameter must be an absolute path"
+
+  Rule: The file must exist in one of the direct ancestor folders.
+    Scenario Template:
+      When searching for file "three.txt" in folder "<starting point>"
+      Then the promise should be rejected with "file not found"
+
+    Scenarios:
+    | starting point    |
+    | one/two           |
+    | one/two/fifty     |
 
   Rule: The file must exist in one of the parent folders.
     Scenario:
