@@ -10,8 +10,12 @@ const { expect } = require('chai')
 const T = require('../../index.js')
 
 When('searching for file {string} in folder {string}', async function (filename, pathspec) {
-  const startIn = path.join(this.tempFolder, pathspec)
-  this.actual = await T(filename, startIn)
+  try {
+    const startIn = path.join(this.tempFolder, pathspec)
+    this.actual = await T(filename, startIn)
+  } catch (err) {
+    this.actual = err
+  }
 })
 
 When('executing the script at {string}', async function (pathspec) {

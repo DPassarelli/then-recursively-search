@@ -42,3 +42,8 @@ Feature: Basic functionality with two parameter values
     Scenario:
       When searching for file "repeat.txt" in folder "one/two"
       Then the promise should resolve to "one/two/repeat.txt"
+
+  Rule: Casing is not significant (for the filename).
+    Scenario:
+      When searching for file "TWO.TXT" in folder "one/two/three/four"
+      Then the promise should resolve to "one/two/two.txt"

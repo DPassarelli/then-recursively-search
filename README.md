@@ -28,7 +28,7 @@ npm install then-recursively-search
 
 #### `fn(filename[, startIn])`
 
-* @param {String} `filename` - The name (including extension) of the file to search for.
+* @param {String} `filename` - The name (including extension) of the file to search for. Not case-sensitive.
 * @param {String?} `startIn` - The directory to begin searching in. If not specified, then defaults to the same value as the location of the caller.
 * @return {Promise} - Fulfilled with the complete path to the file (if found); otherwise, rejected.
 

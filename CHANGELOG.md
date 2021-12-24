@@ -16,6 +16,7 @@ All notable changes to this project will be documented in this file. The format 
 ### Changed
 
 * BREAKING - The parameter order has been swapped to better facilitate calling with a single parameter. Instead of `startIn, filename`, the signature is now `filename[, startIn]`.
+* BREAKING - The case of the file name is no longer a factor in determining if the search was successful.
 * Updated all dependencies.
 
 
