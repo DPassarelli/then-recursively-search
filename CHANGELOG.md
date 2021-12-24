@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file. The format 
 
 ### Removed
 
-* Dropped support for Node 8.
+* Dropped support for Node 8 and 10.
 
 ### Added
 
