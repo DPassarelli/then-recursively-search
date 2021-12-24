@@ -46,22 +46,35 @@ function getParentFolder (dirname) {
  *                                path to the file.
  */
 async function searchForFile (filename, dirname) {
+  debug('searching for "%s" in "%s"', filename, dirname)
+
   const found = await doesFileExist(filename, dirname)
 
   if (found) {
+    debug('...found!')
     return path.join(dirname, filename)
   }
 
+  debug('...not found, recursing')
   return await searchForFile(filename, getParentFolder(dirname))
 }
 
+/**
+ * The exported function (entry point for this module).
+ *
+ * @param  {String}    filename   The file to find (including extension).
+ *
+ * @param  {String?}   startIn    (Optional) The absolute path of the folder to
+ *                                begin searching in. Defaults to the location
+ *                                of the caller.
+ *
+ * @return {Promise}
+ */
 async function exported (filename, startIn) {
   if (startIn === undefined) {
     const callstack = callsites()
     startIn = path.dirname(callstack[1].getFileName())
   }
-
-  debug('searching for "%s" in "%s"', filename, startIn)
 
   return searchForFile(filename, startIn)
 }
