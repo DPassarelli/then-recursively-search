@@ -10,12 +10,12 @@ All notable changes to this project will be documented in this file. The format 
 
 ### Added
 
-* The API now supports calling with a single parameter. In this case, the parameter is assumed to be the name of a file, and the starting directory is set to `__dirname`.
+* The API now supports calling with a single parameter. In this case, the parameter is assumed to be the name of a file, and the starting directory is set to that of the caller.
 * Added support for Node 14 and 16.
 
 ### Changed
 
-* ??? restrict folder path to something in the current project? need to test if any folder can be entered
+* BREAKING - The parameter order has been swapped to better facilitate calling with a single parameter. Instead of `startIn, filename`, the signature is now `filename[, startIn]`.
 * Updated all dependencies.
 
 
