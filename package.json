@@ -37,10 +37,10 @@
   "nyc": {
     "check-coverage": true,
     "per-file": true,
-    "lines": 95,
-    "statements": 95,
-    "functions": 95,
-    "branches": 95,
+    "lines": 92,
+    "statements": 92,
+    "functions": 92,
+    "branches": 92,
     "exclude": [
       "features/",
       "cucumber.js"

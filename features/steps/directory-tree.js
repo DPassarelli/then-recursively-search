@@ -1,8 +1,19 @@
-const fs = require('fs/promises')
+const fs = require('fs')
 const path = require('path')
 
 const { After, Before, Given } = require('@cucumber/cucumber')
 const del = require('del')
+
+let mkdir, writeFile
+
+if (fs.promises) {
+  mkdir = fs.promises.mkdir
+  writeFile = fs.promises.writeFile
+} else {
+  const util = require('util')
+  mkdir = util.promsify(fs.mkdir)
+  writeFile = util.promsify(fs.writeFile)
+}
 
 /**
  * Creates a directory tree matching the specified key-value pairs, according to
@@ -25,7 +36,7 @@ async function createDirectoryTree (tree, parent) {
 
   const promises = entries.map((entry) => {
     if (typeof tree[entry] === 'string') {
-      return fs.writeFile(
+      return writeFile(
         path.join(parent, entry),
         tree[entry]
       )
@@ -33,7 +44,7 @@ async function createDirectoryTree (tree, parent) {
 
     const newParent = path.join(parent, entry)
 
-    return fs.mkdir(newParent)
+    return mkdir(newParent)
       .then(() => {
         return createDirectoryTree(tree[entry], newParent)
       })
@@ -44,7 +55,7 @@ async function createDirectoryTree (tree, parent) {
 
 Before(function () {
   this.tempFolder = path.join(__dirname, 'temp')
-  return fs.mkdir(this.tempFolder)
+  return mkdir(this.tempFolder)
 })
 
 After(function () {

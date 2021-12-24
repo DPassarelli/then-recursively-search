@@ -1,7 +1,13 @@
 const callsites = require('callsites')
 const debug = require('debug')('then-recursively-search')
-const fs = require('fs').promises
+const fs = require('fs')
 const path = require('path')
+const util = require('util')
+
+// for backward compatibility with Node < 14
+const fsAccess = fs.promises
+  ? fs.promises.access
+  : util.promsify(fs.access)
 
 /**
  * Throws an exception if the provided value does not pass validation.
@@ -46,7 +52,7 @@ function validateStartingPoint (dirname) {
 async function doesFileExist (filename, dirname) {
   // fs.exists() is deprecated; docs recommend using access() instead of stat()
   try {
-    await fs.access(path.join(dirname, filename))
+    await fsAccess(path.join(dirname, filename))
     return true
   } catch {
     return false
@@ -87,8 +93,8 @@ async function searchForFile (filename, dirname) {
 
   const parentFolder = getParentFolder(dirname)
   if (parentFolder === dirname) {
-    // cannot recurse any farther, file was not found
-    debug('...not found, unable to recurse')
+    // reached the top of the directory tree
+    debug('...not found, cannot recurse any further')
     throw new Error('file not found')
   }
 
