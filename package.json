@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/dpassarelli/then-recursively-search#readme",
   "engines": {
-    "node": ">=14"
+    "node": ">=18"
   },
   "standard": {
     "global": [

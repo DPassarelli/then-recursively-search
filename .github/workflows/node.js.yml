@@ -4,10 +4,11 @@ name: Test
 on: [push, pull_request]
 
 jobs:
-  install_dependencies_and_run_tests:
+  install-dependencies-and-run-tests:
+    runs-on: ['ubuntu-latest', 'windows-latest']
     strategy:
       matrix:
-        node-version: ['14.x', '16.x', '18.x', '20.x', '22.x']
+        node-version: ['18.x', '20.x', '22.x']
 
     steps:
       - uses: actions/checkout@v4
