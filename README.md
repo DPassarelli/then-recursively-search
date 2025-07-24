@@ -1,7 +1,7 @@
 # then-recursively-search
 
 [![Code Style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://standardjs.com/)
-[![Build Status](https://app.travis-ci.com/DPassarelli/then-recursively-search.svg?branch=main)](https://app.travis-ci.com/DPassarelli/then-recursively-search)
+[![Test](https://github.com/DPassarelli/then-recursively-search/actions/workflows/node.js.yml/badge.svg)](https://github.com/DPassarelli/then-recursively-search/actions/workflows/node.js.yml)
 [![Code Coverage](https://codecov.io/gh/DPassarelli/then-recursively-search/branch/main/graph/badge.svg?token=VU8TSEK50Y)](https://codecov.io/gh/DPassarelli/then-recursively-search)
 
 A Promise-based Node module that recursively searches for a file, moving up the directory tree until found.
