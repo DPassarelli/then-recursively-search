@@ -1,4 +1,5 @@
 node_modules/
+features/steps/temp/
 coverage/
 .nyc_output/
 *.sublime-*
