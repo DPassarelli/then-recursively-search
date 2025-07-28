@@ -1,7 +1,10 @@
 ---
-name: Test
+name: CI Workflow
 
-on: push
+on:
+  push:
+    branches:
+      - '**'
 
 jobs:
   test:
