@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/), and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [7.0.0] - 2025-??-??
+
+### Added
+
+* Badge indicating latest package version on NPM
+
+### Fixed
+
+* Broken link to GH Actions badge.
+
+### Changed
+
+* Converted to ESM format. Please use v6.x if you still need to `require` this function from a CommonJS file.
+
+
 ## [6.0.1] - 2025-07-25
 
 ### Fixed

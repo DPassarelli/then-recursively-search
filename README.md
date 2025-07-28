@@ -3,7 +3,7 @@
 [![Code Style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://standardjs.com/)
 [![Test](https://github.com/DPassarelli/then-recursively-search/actions/workflows/ci.yml/badge.svg)](https://github.com/DPassarelli/then-recursively-search/actions/workflows/ci.yml)
 [![Code Coverage](https://codecov.io/gh/DPassarelli/then-recursively-search/branch/main/graph/badge.svg?token=VU8TSEK50Y)](https://codecov.io/gh/DPassarelli/then-recursively-search)
-[![NPM Version](https://img.shields.io/npm/v/:packageName)](https://www.npmjs.com/package/then-recursively-search)
+[![NPM Version](https://img.shields.io/npm/v/then-recursively-search)](https://www.npmjs.com/package/then-recursively-search)
 
 A Promise-based Node module that recursively searches for a file, moving up the directory tree until found.
 
