@@ -1,6 +1,6 @@
 # then-recursively-search
 
-[![Code Style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://standardjs.com/)
+[![neostandard javascript style](https://img.shields.io/badge/code_style-neostandard-brightgreen?style=flat)](https://github.com/neostandard/neostandard)
 [![Test](https://github.com/DPassarelli/then-recursively-search/actions/workflows/ci.yml/badge.svg)](https://github.com/DPassarelli/then-recursively-search/actions/workflows/ci.yml)
 [![Code Coverage](https://codecov.io/gh/DPassarelli/then-recursively-search/branch/main/graph/badge.svg?token=VU8TSEK50Y)](https://codecov.io/gh/DPassarelli/then-recursively-search)
 [![NPM Version](https://img.shields.io/npm/v/then-recursively-search)](https://www.npmjs.com/package/then-recursively-search)

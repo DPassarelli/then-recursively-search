@@ -4,11 +4,14 @@
   "description": "An async function that recursively searches for a file, moving up the directory tree until found.",
   "main": "index.js",
   "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "deps:bump": "npx --yes npm-check-updates --enginesNode --interactive --removeRange",
     "tdd": "cucumber-js --format rerun:@failed.txt",
     "test": "npm run lint && npm run check-coverage",
-    "lint": "standard",
+    "lint": "eslint .",
     "check-coverage": "nyc cucumber-js"
   },
   "repository": {
@@ -28,14 +31,6 @@
     "url": "https://github.com/dpassarelli/then-recursively-search/issues"
   },
   "homepage": "https://github.com/dpassarelli/then-recursively-search#readme",
-  "engines": {
-    "node": ">=18"
-  },
-  "standard": {
-    "global": [
-      "expect"
-    ]
-  },
   "nyc": {
     "check-coverage": true,
     "per-file": true,
@@ -44,8 +39,7 @@
     "functions": 92,
     "branches": 92,
     "exclude": [
-      "features/",
-      "cucumber.js"
+      "features/"
     ]
   },
   "dependencies": {
@@ -56,7 +50,8 @@
     "@cucumber/cucumber": "11.3.0",
     "chai": "4.5.0",
     "del": "6.1.1",
-    "nyc": "17.1.0",
-    "standard": "17.1.2"
+    "eslint": "9.32.0",
+    "neostandard": "0.12.2",
+    "nyc": "17.1.0"
   }
 }
