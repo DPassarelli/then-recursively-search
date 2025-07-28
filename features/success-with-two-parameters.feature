@@ -7,15 +7,15 @@ Feature: Basic functionality with two parameter values
     Given a directory tree with the following structure:
     """
     {
-      "one": {
-        "one.txt": "test file",
+      "parent": {
+        "first.txt": "test file",
         "repeat.txt": "test file",
-        "two": {
-          "two.txt": "test file",
+        "child": {
+          "second.txt": "test file",
           "repeat.txt": "test file",
-          "three": {
-            "three.txt": "test file",
-            "four": {}
+          "grandchild": {
+            "third.txt": "test file",
+            "great-grandchild": {}
           }
         }
       }
@@ -27,23 +27,23 @@ Feature: Basic functionality with two parameter values
     Then the promise should resolve to "<expected>"
 
     Scenarios:
-    | starting point      | to find      | expected                |
-    | one/two/three       | three.txt    | one/two/three/three.txt |
-    | one/two/three       | two.txt      | one/two/two.txt         |
-    | one/two/three       | one.txt      | one/one.txt             |
-    | one/two/three/four  | two.txt      | one/two/two.txt         |
+    | starting point                            | to find     | expected                           |
+    | parent/child/grandchild                   | third.txt   | parent/child/grandchild/third.txt  |
+    | parent/child/grandchild                   | second.txt  | parent/child/second.txt            |
+    | parent/child/grandchild                   | first.txt   | parent/first.txt                   |
+    | parent/child/grandchild/great-grandchild  | second.txt  | parent/child/second.txt            |
 
 
   Rule: The first matching file must be returned.
     Scenario:
-      When searching for file "repeat.txt" in folder "one/two/three/four"
-      Then the promise should resolve to "one/two/repeat.txt"
+      When searching for file "repeat.txt" in folder "parent/child/grandchild/great-grandchild"
+      Then the promise should resolve to "parent/child/repeat.txt"
 
     Scenario:
-      When searching for file "repeat.txt" in folder "one/two"
-      Then the promise should resolve to "one/two/repeat.txt"
+      When searching for file "repeat.txt" in folder "parent/child"
+      Then the promise should resolve to "parent/child/repeat.txt"
 
   Rule: Casing is not significant (for the filename).
     Scenario:
-      When searching for file "TWO.TXT" in folder "one/two/three/four"
-      Then the promise should resolve to "one/two/two.txt"
+      When searching for file "SECOND.TXT" in folder "parent/child/grandchild"
+      Then the promise should resolve to "parent/child/second.txt"
