@@ -16,7 +16,7 @@ Feature: Basic functionality with one parameter value
           "repeat.txt": "test file",
           "three": {
             "three.txt": "test file",
-            "test.js": "const path = require('path'); const T = require(path.join(process.cwd(), 'index.js')); module.exports = T('one.txt')",
+            "test.js": "const path = require('path'); const T = require(path.join(process.cwd(), 'index.cjs')); module.exports = T('one.txt')",
             "four": {
             }
           }

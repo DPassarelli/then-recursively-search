@@ -5,7 +5,7 @@ const { expect } = require('chai')
  * The code under test.
  * @type {Function}
  */
-const T = require('../../index.js')
+const T = require('../../index.cjs')
 
 When('calling the exported function with no parameters', async function () {
   try {

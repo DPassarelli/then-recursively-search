@@ -7,7 +7,7 @@ const { expect } = require('chai')
  * The code under test.
  * @type {Function}
  */
-const T = require('../../index.js')
+const T = require('../../index.cjs')
 
 When('searching for file {string} in folder {string}', async function (filename, pathspec) {
   try {
