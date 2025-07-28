@@ -16,7 +16,7 @@ Feature: Basic functionality with one parameter value
           "repeat.txt": "test file",
           "three": {
             "three.txt": "test file",
-            "test.js": "const path = require('path'); const T = require(path.join(process.cwd(), 'index.cjs')); module.exports = T('one.txt')",
+            "test.cjs": "const path = require('path'); const T = require(path.join(process.cwd(), 'index.cjs')); module.exports = T('one.txt')",
             "four": {
             }
           }
@@ -26,5 +26,5 @@ Feature: Basic functionality with one parameter value
     """
 
   Scenario:
-    When executing the script at "one/two/three/test.js"
+    When executing the script at "one/two/three/test.cjs"
     Then the promise should resolve to "one/one.txt"
