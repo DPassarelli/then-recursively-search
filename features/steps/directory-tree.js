@@ -1,11 +1,9 @@
 import { mkdir, writeFile } from 'node:fs/promises'
-import { dirname, join as joinPathSegments } from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { join as joinPathSegments } from 'node:path'
+import { cwd } from 'node:process'
 
 import { After, Before, Given } from '@cucumber/cucumber'
 import { deleteAsync } from 'del'
-
-const __dirname = dirname(fileURLToPath(import.meta.url))
 
 /**
  * Creates a directory tree matching the specified key-value pairs, according to
@@ -45,16 +43,33 @@ async function createDirectoryTree (tree, parent) {
   await Promise.all(promises)
 }
 
+let counter = 0
+
 Before(function () {
-  this.tempFolder = joinPathSegments(__dirname, '.temp')
-  return mkdir(this.tempFolder)
+  counter++
+  this.tempFolder = joinPathSegments(cwd(), '.temp', counter.toString())
+  return mkdir(this.tempFolder, { recursive: true })
 })
 
 After(function () {
   return deleteAsync(this.tempFolder)
 })
 
-Given('a directory tree with the following structure:', async function (docString) {
-  const tree = JSON.parse(docString)
-  return createDirectoryTree(tree, this.tempFolder)
-})
+Given(
+  'a directory tree with the following structure:',
+  function (docString) {
+    const tree = JSON.parse(docString)
+    return createDirectoryTree(tree, this.tempFolder)
+  }
+)
+
+Given(
+  'a script file with the following contents located in the folder {string}:',
+  function (pathspec, docString) {
+    this.pathToScriptFile = joinPathSegments(this.tempFolder, pathspec, 'script.js')
+    return writeFile(
+      this.pathToScriptFile,
+      docString
+    )
+  }
+)

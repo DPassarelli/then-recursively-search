@@ -17,10 +17,9 @@ When('searching for file {string} in folder {string}', async function (filename,
   }
 })
 
-When('executing the script at {string}', async function (pathspec) {
-  const pathToScript = joinPathSegments(this.tempFolder, pathspec)
-  const imported = await import(pathToScript)
-  this.actual = await imported.result
+When('executing the script', async function () {
+  const { default: T } = await import(this.pathToScriptFile)
+  this.actual = await T()
 })
 
 Then('the promise should resolve to {string}', function (pathspec) {

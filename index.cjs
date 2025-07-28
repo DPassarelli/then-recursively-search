@@ -1,8 +1,9 @@
 const callsites = require('callsites')
 const debug = require('debug')('then-recursively-search')
-const fs = require('fs')
-const path = require('path')
-const util = require('util')
+const fs = require('node:fs')
+const path = require('node:path')
+const url = require('node:url')
+const util = require('node:util')
 
 // for backward compatibility with Node < 14
 const fsAccess = fs.promises
@@ -118,7 +119,7 @@ async function exported (filename, startIn) {
 
   if (startIn === undefined) {
     const callstack = callsites()
-    startIn = path.dirname(callstack[1].getFileName())
+    startIn = path.dirname(url.fileURLToPath(callstack[1].getFileName()))
   } else {
     validateStartingPoint(startIn)
   }
