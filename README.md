@@ -1,10 +1,12 @@
 # then-recursively-search
 
 [![Code Style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://standardjs.com/)
-[![Test](https://github.com/DPassarelli/then-recursively-search/actions/workflows/node.js.yml/badge.svg)](https://github.com/DPassarelli/then-recursively-search/actions/workflows/node.js.yml)
+[![Test](https://github.com/DPassarelli/then-recursively-search/actions/workflows/ci.yml/badge.svg)](https://github.com/DPassarelli/then-recursively-search/actions/workflows/ci.yml)
 [![Code Coverage](https://codecov.io/gh/DPassarelli/then-recursively-search/branch/main/graph/badge.svg?token=VU8TSEK50Y)](https://codecov.io/gh/DPassarelli/then-recursively-search)
+[![NPM Version](https://img.shields.io/npm/v/:packageName)](https://www.npmjs.com/package/then-recursively-search)
 
 A Promise-based Node module that recursively searches for a file, moving up the directory tree until found.
+
 
 ## Why
 
@@ -22,19 +24,19 @@ npm install then-recursively-search
 
 ### API
 
-#### `fn(filename[, startIn])`
+#### `find(filename[, startIn])`
 
 * @param {String} `filename` - The name (including extension) of the file to search for. Not case-sensitive.
 * @param {String?} `startIn` - The directory to begin searching in. If not specified, then defaults to the same value as the location of the caller.
-* @return {Promise} - Fulfilled with the complete path to the file (if found); otherwise, rejected.
+* @return {Promise<String>} - Fulfilled with the complete path to the file (if found); otherwise, rejected.
 
 
 #### Example
 
 ```
-const findFile = require('then-recursively-search')
+import { find } from 'then-recursively-search'
 
-findFile('package.json')
+find('package.json')
   .then(function (pathspec) {
     // `pathspec` will be a complete path to the nearest `package.json` file in any folder above `__dirname`
   })
