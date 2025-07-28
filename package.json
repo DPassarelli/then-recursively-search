@@ -48,8 +48,8 @@
   },
   "devDependencies": {
     "@cucumber/cucumber": "11.3.0",
-    "chai": "4.5.0",
-    "del": "6.1.1",
+    "chai": "5.2.1",
+    "del": "8.0.0",
     "eslint": "9.32.0",
     "neostandard": "0.12.2",
     "nyc": "17.1.0"

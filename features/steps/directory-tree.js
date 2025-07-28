@@ -1,19 +1,11 @@
-const fs = require('fs')
-const path = require('path')
+import { mkdir, writeFile } from 'node:fs/promises'
+import { dirname, join as joinPathSegments } from 'node:path'
+import { fileURLToPath } from 'node:url'
 
-const { After, Before, Given } = require('@cucumber/cucumber')
-const del = require('del')
+import { After, Before, Given } from '@cucumber/cucumber'
+import { deleteAsync } from 'del'
 
-let mkdir, writeFile
-
-if (fs.promises) {
-  mkdir = fs.promises.mkdir
-  writeFile = fs.promises.writeFile
-} else {
-  const util = require('util')
-  mkdir = util.promsify(fs.mkdir)
-  writeFile = util.promsify(fs.writeFile)
-}
+const __dirname = dirname(fileURLToPath(import.meta.url))
 
 /**
  * Creates a directory tree matching the specified key-value pairs, according to
@@ -37,12 +29,12 @@ async function createDirectoryTree (tree, parent) {
   const promises = entries.map((entry) => {
     if (typeof tree[entry] === 'string') {
       return writeFile(
-        path.join(parent, entry),
+        joinPathSegments(parent, entry),
         tree[entry]
       )
     }
 
-    const newParent = path.join(parent, entry)
+    const newParent = joinPathSegments(parent, entry)
 
     return mkdir(newParent)
       .then(() => {
@@ -54,12 +46,12 @@ async function createDirectoryTree (tree, parent) {
 }
 
 Before(function () {
-  this.tempFolder = path.join(__dirname, 'temp')
+  this.tempFolder = joinPathSegments(__dirname, '.temp')
   return mkdir(this.tempFolder)
 })
 
 After(function () {
-  return del(this.tempFolder)
+  return deleteAsync(this.tempFolder)
 })
 
 Given('a directory tree with the following structure:', async function (docString) {

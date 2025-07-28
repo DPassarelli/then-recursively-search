@@ -1,11 +1,11 @@
-const { When, Then } = require('@cucumber/cucumber')
-const { expect } = require('chai')
+import { When, Then } from '@cucumber/cucumber'
+import { expect } from 'chai'
 
 /**
  * The code under test.
  * @type {Function}
  */
-const T = require('../../index.cjs')
+import T from '../../index.cjs'
 
 When('calling the exported function with no parameters', async function () {
   try {
@@ -53,7 +53,7 @@ When('calling the exported function with parameter of type {string}', async func
 
 When('calling the exported function with a relative path', async function () {
   try {
-    this.actual = await T('one.txt', './one')
+    this.actual = await T('first.txt', './parent')
   } catch (err) {
     this.actual = err
   }
