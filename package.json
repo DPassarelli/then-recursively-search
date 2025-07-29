@@ -5,10 +5,9 @@
   "main": "index.js",
   "scripts": {
     "deps:bump": "npx --yes npm-check-updates --enginesNode --interactive --removeRange",
-    "tdd": "cucumber-js --format rerun:@failed.txt",
-    "test": "npm run lint && npm run check-coverage",
+    "test": "npm run lint && nyc cucumber-js",
     "lint": "standard",
-    "check-coverage": "nyc cucumber-js"
+    "ci-workflow": "npm run lint && nyc --silent cucumber-js --format junit > test-report.junit.xml && nyc report --reporter=text-lcov > coverage.lcov"
   },
   "repository": {
     "type": "git",
