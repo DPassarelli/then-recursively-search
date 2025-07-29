@@ -1,5 +1,6 @@
 import { access } from 'node:fs/promises'
 import { dirname, isAbsolute, join as joinPathSegments } from 'node:path'
+import { platform } from 'node:os'
 import { fileURLToPath } from 'node:url'
 
 import callsites from 'callsites'
@@ -114,8 +115,17 @@ export const findRecursively = async function (filename, startIn) {
   validateFileName(filename)
 
   if (startIn === undefined) {
+    /**
+     * Figure out exactly where this code is being called from (which may or may
+     * not match CWD).
+     */
     const callstack = callsites()
-    startIn = dirname(fileURLToPath(callstack[1].getFileName()))
+
+    startIn = (
+      platform === 'win32'
+        ? dirname(callstack[1].getFileName())
+        : dirname(fileURLToPath(callstack[1].getFileName()))
+    )
   } else {
     validateStartingPoint(startIn)
   }
