@@ -24,7 +24,7 @@ npm install then-recursively-search
 
 ### API
 
-#### `find(filename[, startIn])`
+#### `findRecursively(filename[, startIn])`
 
 * @param {String} `filename` - The name (including extension) of the file to search for. Not case-sensitive.
 * @param {String?} `startIn` - The directory to begin searching in. If not specified, then defaults to the same value as the location of the caller.
@@ -34,9 +34,9 @@ npm install then-recursively-search
 #### Example
 
 ```
-import { find } from 'then-recursively-search'
+import { findRecursively } from 'then-recursively-search'
 
-find('package.json')
+findRecursively('package.json')
   .then(function (pathspec) {
     // `pathspec` will be a complete path to the nearest `package.json` file in any folder above `__dirname`
   })

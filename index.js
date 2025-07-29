@@ -1,14 +1,10 @@
-const callsites = require('callsites')
-const debug = require('debug')('then-recursively-search')
-const fs = require('node:fs')
-const path = require('node:path')
-const url = require('node:url')
-const util = require('node:util')
+import { access } from 'node:fs/promises'
+import { dirname, isAbsolute, join as joinPathSegments } from 'node:path'
+import { fileURLToPath } from 'node:url'
 
-// for backward compatibility with Node < 14
-const fsAccess = fs.promises
-  ? fs.promises.access
-  : util.promsify(fs.access)
+import callsites from 'callsites'
+import createDebugLogger from 'debug'
+const debug = createDebugLogger('then-recursively-search')
 
 /**
  * Throws an exception if the provided value does not pass validation.
@@ -19,7 +15,7 @@ const fsAccess = fs.promises
  */
 function validateFileName (filename) {
   if (filename === undefined) {
-    throw new Error('the "filename" parameter is required')
+    throw new TypeError('the "filename" parameter is required')
   }
 
   if (typeof filename !== 'string') {
@@ -30,12 +26,12 @@ function validateFileName (filename) {
 /**
  * Throws an exception if the provided value does not pass validation.
  *
- * @param  {String?}   dirname   The value to check.
+ * @param  {String?}   pathspec  The value to check.
  *
  * @return {undefined}
  */
-function validateStartingPoint (dirname) {
-  if (!path.isAbsolute(dirname)) {
+function validateStartingPoint (pathspec) {
+  if (!isAbsolute(pathspec)) {
     throw new Error('if specified, the "startIn" parameter must be an absolute path')
   }
 }
@@ -46,14 +42,14 @@ function validateStartingPoint (dirname) {
  *
  * @param  {String}    filename   The named file (including extension).
  *
- * @param  {String}    dirname    The absolute path of the containing folder.
+ * @param  {String}    pathspec   The absolute path of the containing folder.
  *
  * @return {Promise}              Resolves to a {Boolean}.
  */
-async function doesFileExist (filename, dirname) {
+async function doesFileExist (filename, pathspec) {
   // fs.exists() is deprecated; docs recommend using access() instead of stat()
   try {
-    await fsAccess(path.join(dirname, filename))
+    await access(joinPathSegments(pathspec, filename))
     return true
   } catch {
     return false
@@ -63,37 +59,37 @@ async function doesFileExist (filename, dirname) {
 /**
  * Returns the parent of the specified folder.
  *
- * @param  {String}   dirname   The absolute path of the child folder.
+ * @param  {String}   pathspec  The absolute path of the child folder.
  *
  * @return {String}             The absolute path to the parent.
  */
-function getParentFolder (dirname) {
-  return path.dirname(dirname)
+function getParentFolder (pathspec) {
+  return dirname(pathspec)
 }
 
 /**
- * Search for `filename` in `dirname`, recursively moving up the directory tree
+ * Search for `filename` in `pathspec`, recursively moving up the directory tree
  * if not found.
  *
  * @param  {String}    filename   The file to find (including extension).
  *
- * @param  {String}    dirname    The absolute path of the folder to look in.
+ * @param  {String}    pathspec   The absolute path of the folder to look in.
  *
  * @return {Promise}              Resolves to a {String} containing the complete
  *                                path to the file.
  */
-async function searchForFile (filename, dirname) {
-  debug('searching for "%s" in "%s"', filename, dirname)
+async function searchForFile (filename, pathspec) {
+  debug('searching for "%s" in "%s"', filename, pathspec)
 
-  const found = await doesFileExist(filename, dirname)
+  const found = await doesFileExist(filename, pathspec)
 
   if (found) {
     debug('...found!')
-    return path.join(dirname, filename)
+    return joinPathSegments(pathspec, filename)
   }
 
-  const parentFolder = getParentFolder(dirname)
-  if (parentFolder === dirname) {
+  const parentFolder = getParentFolder(pathspec)
+  if (parentFolder === pathspec) {
     // reached the top of the directory tree
     debug('...not found, cannot recurse any further')
     throw new Error('file not found')
@@ -114,17 +110,15 @@ async function searchForFile (filename, dirname) {
  *
  * @return {Promise}
  */
-async function exported (filename, startIn) {
+export const findRecursively = async function (filename, startIn) {
   validateFileName(filename)
 
   if (startIn === undefined) {
     const callstack = callsites()
-    startIn = path.dirname(url.fileURLToPath(callstack[1].getFileName()))
+    startIn = dirname(fileURLToPath(callstack[1].getFileName()))
   } else {
     validateStartingPoint(startIn)
   }
 
   return searchForFile(filename.toLowerCase(), startIn)
 }
-
-module.exports = exported

@@ -5,7 +5,7 @@ import { expect } from 'chai'
  * The code under test.
  * @type {Function}
  */
-import T from '../../index.cjs'
+import { findRecursively as T } from '../../index.js'
 
 When('calling the exported function with no parameters', async function () {
   try {

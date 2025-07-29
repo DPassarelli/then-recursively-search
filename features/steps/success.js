@@ -6,7 +6,7 @@ import { expect } from 'chai'
  * The code under test.
  * @type {Function}
  */
-import T from '../../index.cjs'
+import { findRecursively as T } from '../../index.js'
 
 When('searching for file {string} in folder {string}', async function (filename, pathspec) {
   try {

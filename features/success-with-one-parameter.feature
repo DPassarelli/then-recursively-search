@@ -20,9 +20,9 @@ Feature: Basic functionality with one parameter value
       """
     And a script file with the following contents located in the folder "parent/child/grandchild":
       """
-      const { default: T } = await import('../../../../../index.cjs')
+      const { findRecursively } = await import('../../../../../index.js')
       export default function () {
-        return T('sample.txt')
+        return findRecursively('sample.txt')
       }
       """
     When executing the script
