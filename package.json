@@ -1,6 +1,6 @@
 {
   "name": "then-recursively-search",
-  "version": "6.0.1",
+  "version": "6.0.2",
   "description": "An async function that recursively searches for a file, moving up the directory tree until found.",
   "main": "index.js",
   "scripts": {
@@ -36,10 +36,7 @@
     "statements": 92,
     "functions": 92,
     "branches": 92,
-    "exclude": [
-      "features/",
-      "cucumber.js"
-    ]
+    "exclude": ["features/"]
   },
   "dependencies": {
     "callsites": "3.1.0",
