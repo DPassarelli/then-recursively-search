@@ -6,7 +6,7 @@
   "scripts": {
     "deps:bump": "npx --yes npm-check-updates --enginesNode --interactive --removeRange",
     "test": "npm run lint && nyc cucumber-js",
-    "lint": "standard",
+    "lint": "eslint .",
     "ci-workflow": "npm run lint && nyc --silent cucumber-js --format junit > test-report.junit.xml && nyc report --reporter=text-lcov > coverage.lcov"
   },
   "repository": {
@@ -29,11 +29,6 @@
   "engines": {
     "node": ">=18"
   },
-  "standard": {
-    "global": [
-      "expect"
-    ]
-  },
   "nyc": {
     "check-coverage": true,
     "per-file": true,
@@ -54,7 +49,8 @@
     "@cucumber/cucumber": "11.3.0",
     "chai": "4.5.0",
     "del": "6.1.1",
-    "nyc": "17.1.0",
-    "standard": "17.1.2"
+    "eslint": "9.32.0",
+    "neostandard": "0.12.2",
+    "nyc": "17.1.0"
   }
 }
