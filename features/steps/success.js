@@ -1,4 +1,4 @@
-const path = require('path')
+const path = require('node:path')
 
 const { When, Then } = require('@cucumber/cucumber')
 const { expect } = require('chai')
