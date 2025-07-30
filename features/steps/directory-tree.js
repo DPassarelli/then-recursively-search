@@ -1,5 +1,5 @@
-const fs = require('fs')
-const path = require('path')
+const fs = require('node:fs')
+const path = require('node:path')
 
 const { After, Before, Given } = require('@cucumber/cucumber')
 const del = require('del')
@@ -10,7 +10,7 @@ if (fs.promises) {
   mkdir = fs.promises.mkdir
   writeFile = fs.promises.writeFile
 } else {
-  const util = require('util')
+  const util = require('node:util')
   mkdir = util.promsify(fs.mkdir)
   writeFile = util.promsify(fs.writeFile)
 }

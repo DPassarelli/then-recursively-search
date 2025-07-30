@@ -2,6 +2,7 @@ node_modules/
 features/steps/temp/
 coverage/
 .nyc_output/
-*.sublime-*
-@failed.txt
 *.lcov
+*.sublime-*
+*.xml
+@failed.txt

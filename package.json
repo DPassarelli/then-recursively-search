@@ -1,14 +1,13 @@
 {
   "name": "then-recursively-search",
-  "version": "6.0.1",
+  "version": "6.0.2",
   "description": "An async function that recursively searches for a file, moving up the directory tree until found.",
   "main": "index.js",
   "scripts": {
     "deps:bump": "npx --yes npm-check-updates --enginesNode --interactive --removeRange",
-    "tdd": "cucumber-js --format rerun:@failed.txt",
-    "test": "npm run lint && npm run check-coverage",
-    "lint": "standard",
-    "check-coverage": "nyc cucumber-js"
+    "test": "npm run lint && nyc cucumber-js",
+    "lint": "eslint .",
+    "ci-workflow": "npm run lint && nyc --silent cucumber-js --format junit > test-report.junit.xml && nyc report --reporter=text-lcov > coverage.lcov"
   },
   "repository": {
     "type": "git",
@@ -30,11 +29,6 @@
   "engines": {
     "node": ">=18"
   },
-  "standard": {
-    "global": [
-      "expect"
-    ]
-  },
   "nyc": {
     "check-coverage": true,
     "per-file": true,
@@ -42,10 +36,7 @@
     "statements": 92,
     "functions": 92,
     "branches": 92,
-    "exclude": [
-      "features/",
-      "cucumber.js"
-    ]
+    "exclude": ["features/"]
   },
   "dependencies": {
     "callsites": "3.1.0",
@@ -55,7 +46,8 @@
     "@cucumber/cucumber": "11.3.0",
     "chai": "4.5.0",
     "del": "6.1.1",
-    "nyc": "17.1.0",
-    "standard": "17.1.2"
+    "eslint": "9.32.0",
+    "neostandard": "0.12.2",
+    "nyc": "17.1.0"
   }
 }
